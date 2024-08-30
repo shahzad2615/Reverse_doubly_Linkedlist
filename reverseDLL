@@ -1,0 +1,38 @@
+class Solution {
+public:
+    // Function to reverse a doubly linked list
+    DLLNode* reverseDLL(DLLNode* head) {
+        // Base case: If the list is empty (head is nullptr) or has only one node (head->next is nullptr), return head
+        if (head == nullptr || head->next == nullptr) {
+            // Return the head node as it is already reversed (or empty)
+            return head;
+        }
+
+        // Initialize two pointers: current and last
+        // current points to the head of the list
+        DLLNode* current = head;
+        // last is initialized to nullptr (will store the previous node)
+        DLLNode* last = nullptr;
+
+        // Traverse the list and reverse the pointers
+        while (current != nullptr) {
+            // Store the previous node in last
+            last = current->prev;
+
+            // Reverse the next and prev pointers of the current node
+            // current->prev now points to the next node
+            current->prev = current->next;
+            // current->next now points to the previous node (last)
+            current->next = last;
+
+            // Move to the next node (which is now the previous node)
+            // current now points to the previous node (last)
+            current = current->prev;
+        }
+
+        // Return the new head of the reversed list
+        // last->prev points to the new head (the last node in the original list)
+        return last->prev;
+    }
+};
+
